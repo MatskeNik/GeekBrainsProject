@@ -1,20 +1,22 @@
-public class Human implements Participant {
+package lesson1;
+
+public class Cat implements Participant {
     private int maxDistance;
     private int maxHeight;
 
-    public Human(int maxDistance, int maxHeight) {
+    public Cat(int maxDistance, int maxHeight) {
         this.maxDistance = maxDistance;
         this.maxHeight = maxHeight;
     }
 
     @Override
     public void run() {
-        System.out.println("Человек бежит");
+        System.out.println("Кот бежит");
     }
 
     @Override
     public void jump() {
-        System.out.println("Человек прыгает");
+        System.out.println("Кот прыгает");
     }
 
     @Override

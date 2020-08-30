@@ -1,3 +1,5 @@
+package lesson1;
+
 public class Barrier {
     private int height;
     private int length;
