@@ -21,8 +21,15 @@ public class ArrayHandler {
     }
 
     private void checkArraySize(String[][] args) throws MyArraySizeException {
-        if(args.length != 4 || args[0].length != 4) {
+        if(args.length != 4) {
             throw new MyArraySizeException("Неподходящий размер массива");
+        }
+
+        //правки по результам разбора дз
+        for (int i = 0; i < args.length; i++) {
+            if(args[i].length != 4) {
+                throw new MyArraySizeException("Неподходящий размер массива");
+            }
         }
     }
 
@@ -30,7 +37,7 @@ public class ArrayHandler {
         try {
             return parseInt(str);
         } catch (NumberFormatException e) {
-            throw new MyArrayDataException(String.format("Не удалось преобразовать ячейку со значением %s в строке - %d, колонке - %d", str, row+1, column+1));
+            throw new MyArrayDataException(String.format("Не удалось преобразовать ячейку со значением %s в строке - %d, колонке - %d", str, row+1, column+1), e);
         }
     }
 }
