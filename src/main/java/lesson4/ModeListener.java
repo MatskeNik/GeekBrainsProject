@@ -15,9 +15,7 @@ public class ModeListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        StringBuilder sb = new StringBuilder(inputArea.getText());
-        sb.append(textField.getText()).append("\n");
-        inputArea.setText(sb.toString());
+        inputArea.setText(inputArea.getText()+textField.getText()+"\n");
         textField.setText("");
     }
 }
