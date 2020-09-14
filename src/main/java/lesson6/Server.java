@@ -1,8 +1,6 @@
 package lesson6;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -26,7 +24,7 @@ public class Server {
 
             in = new DataInputStream(socket.getInputStream());
             out = new DataOutputStream(socket.getOutputStream());
-
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             Thread t1 = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -42,10 +40,12 @@ public class Server {
             t1.start();
 
             while (true) {
-                Scanner input = new Scanner(System.in);
-                String message = input.nextLine();
-                out.writeUTF(message);
-
+                String message = reader.readLine();
+                try {
+                    out.writeUTF(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (IOException e) {
