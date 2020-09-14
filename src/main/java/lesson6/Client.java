@@ -2,7 +2,6 @@ package lesson6;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     private DataInputStream in;
@@ -13,9 +12,7 @@ public class Client {
     }
 
     public Client() {
-        Socket socket = null;
-        try {
-            socket = new Socket("127.0.0.1", 18443);
+        try (Socket socket = new Socket("127.0.0.1", 18443)) {
 
             System.out.println("Client info: " + socket);
 
@@ -26,12 +23,12 @@ public class Client {
             Thread t1 = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (true) {
-                        try {
-                            System.out.println(in.readUTF());
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    try {
+                        while (true) {
+                                System.out.println(in.readUTF());
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -39,22 +36,11 @@ public class Client {
 
             while (true) {
                 String message = reader.readLine();
-                try {
-                    out.writeUTF(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                out.writeUTF(message);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

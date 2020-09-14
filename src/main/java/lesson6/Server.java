@@ -3,7 +3,6 @@ package lesson6;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Server {
     private DataInputStream in;
@@ -14,9 +13,8 @@ public class Server {
     }
 
     public Server() {
-        try {
-            System.out.println("Server is starting up...");
-            ServerSocket serverSocket = new ServerSocket(18443);
+        System.out.println("Server is starting up...");
+        try (ServerSocket serverSocket = new ServerSocket(18443)) {
 
             System.out.println("Server waiting for connection...");
             Socket socket = serverSocket.accept();
@@ -28,12 +26,12 @@ public class Server {
             Thread t1 = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    while (true) {
-                        try {
+                    try {
+                        while (true) {
                             System.out.println(in.readUTF());
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             });
@@ -41,22 +39,11 @@ public class Server {
 
             while (true) {
                 String message = reader.readLine();
-                try {
-                    out.writeUTF(message);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                out.writeUTF(message);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                in.close();
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
