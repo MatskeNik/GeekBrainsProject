@@ -125,6 +125,7 @@ public class ClientHandler {
                 String formatterMessage = String.format("Private message from %s: %s", name, splittedMessageByName[1]);
                 System.out.println(formatterMessage);
                 server.privateMessage(formatterMessage, splittedMessage[1]);
+                this.sendMessage(splittedMessageByName[1]);
             } else {
                 String formatterMessage = String.format("Message from %s: %s", name, message);
                 System.out.println(formatterMessage);
